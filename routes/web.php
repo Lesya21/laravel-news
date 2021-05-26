@@ -28,5 +28,6 @@ Route::get('/news/{id}', [NewsController::class, 'detail'])
     ->name('news.detail');
 
 //admin
+Route::get('/admin', [AdminNewsController::class, 'index'])->name('admin.index');
 Route::get('/admin/create', [AdminNewsController::class, 'create']);
 Route::get('/admin/edit/{id}', [AdminNewsController::class, 'edit']);
