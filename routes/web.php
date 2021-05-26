@@ -13,18 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use \App\Http\Controllers\News\NewsController;
+use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/info', function () {
-    echo "Информация о проекте";
-});
+//news
+Route::get('/news', [NewsController::class, 'index'])
+    ->name('news.index');
+Route::get('/news/{id}', [NewsController::class, 'detail'])
+    ->where('id', '\d+')
+    ->name('news.detail');
 
-Route::get('/news', function () {
-    echo "Страница для вывода нескольких новостей";
-});
-
-Route::get('/news-detail', function () {
-    echo "Страница для вывода одной новости";
-});
+//admin
+Route::get('/admin/create', [AdminNewsController::class, 'create']);
+Route::get('/admin/edit/{id}', [AdminNewsController::class, 'edit']);
