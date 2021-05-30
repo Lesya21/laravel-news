@@ -20,12 +20,47 @@
     <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
             <a href="#" class="navbar-brand d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                <strong>Album</strong>
+                <strong>Новостной сайт</strong>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <div id="header-form">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Есть вопросы?
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <transition name="fade">
+                                <div class="modal-header alert alert-success" v-if="success">
+                                    Отправлено!
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            </transition>
+                            <div class="modal-header" v-if="!success">
+                                <h4>Задать вопрос</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" v-if="!success">
+                                <form method="POST" action="{{ route('forms.callback')  }}">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <input class="form-control" type="text" name="name" v-model="name" placeholder="Имя"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <textarea name="comment" class="form-control" type="text" v-model="comment" placeholder="Вопрос"></textarea>
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <button class="btn btn-primary" type="submit" @click.prevent="send('{{ route('forms.callback') }}')">Отправить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="{{ mix('js/header-form.js') }}"></script>
         </div>
     </div>
 </header>

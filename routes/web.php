@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 use \App\Http\Controllers\News\NewsController;
 use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use \App\Http\Controllers\FormController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,8 +27,16 @@ Route::get('/news', [NewsController::class, 'index'])
 Route::get('/news/{id}', [NewsController::class, 'detail'])
     ->where('id', '\d+')
     ->name('news.detail');
+Route::get('/contacts', [NewsController::class, 'contacts'])
+    ->name('contacts');
 
 //admin
 Route::get('/admin', [AdminNewsController::class, 'index'])->name('admin.index');
 Route::get('/admin/create', [AdminNewsController::class, 'create']);
 Route::get('/admin/edit/{id}', [AdminNewsController::class, 'edit']);
+
+//forms
+Route::post('/callback', [FormController::class, 'saveCallback'])
+    ->name('forms.callback');
+Route::post('/get-data', [FormController::class, 'saveGetData'])
+    ->name('forms.data');
