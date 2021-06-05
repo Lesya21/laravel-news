@@ -20,4 +20,9 @@ class NewsController extends Controller
             'id' => $id
         ]);
     }
+
+    public function contacts()
+    {
+        return view('contacts');
+    }
 }

@@ -30,18 +30,16 @@
 
 </head>
 <body>
+<div>
+    <x-default.header></x-default.header>
 
-<x-default.header></x-default.header>
+    <main>
+        @yield('content')
+    </main>
 
-<main>
-    @yield('content')
-</main>
-
-<x-default.footer></x-default.footer>
-
-
+    <x-default.footer></x-default.footer>
+</div>
 <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-
 
 </body>
 </html>
