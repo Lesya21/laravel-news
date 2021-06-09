@@ -22,7 +22,7 @@
                             <p class="card-text">{{ $news->description  }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="<?= route('news.detail', ['id' => $news->id]) ?>" class="btn btn-sm btn-outline-secondary">Подробнее</a>
+                                    <a href="<?= route('news.detail', ['news' => $news]) ?>" class="btn btn-sm btn-outline-secondary">Подробнее</a>
                                 </div>
                                 <small class="text-muted">Дата добавления {{ $news->created_at }}</small>
                             </div>

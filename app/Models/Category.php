@@ -11,18 +11,10 @@ class Category extends Model
 
     protected $table = 'categories';
 
-    public function categoriesList()
-    {
-        return \DB::table($this->table)
-            ->select('*')
-            ->get();
-    }
+    protected $fillable = ['title', 'description', 'active'];
 
-    public function category(int $id)
+    public function news()
     {
-        return \DB::table($this->table)
-            ->select('*')
-            ->where(['id' => $id])
-            ->first();
+        return $this->belongsToMany(News::class);
     }
 }

@@ -15,10 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $model = new Category();
-        $categories = $model->categoriesList();
         return view('admin.categories.index', [
-            'categories' => $categories
+            'categories' => Category::all()->sortByDesc('id')
         ]);
     }
 
@@ -29,7 +27,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create', [
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -40,7 +40,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+
+        $fields = $request->only('title', 'description');
+        $category = Category::create($fields);
+
+        if ($category) {
+            return redirect()->route('categories.index');
+        }
     }
 
     /**
@@ -60,9 +70,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', [
+            'category' => $category
+        ]);
     }
 
     /**
@@ -72,9 +84,21 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'title' => ['required']
+        ]);
+
+        $fields = $request->only('title', 'description');
+
+        $category->fill($fields)->save();
+
+        if ($category) {
+            return redirect()->route('categories.index');
+        }
+
+        return back()->withInput();
     }
 
     /**

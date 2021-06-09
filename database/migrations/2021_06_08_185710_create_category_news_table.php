@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriesNewsTable extends Migration
+class CreateCategoryNewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCategoriesNewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories_news', function (Blueprint $table) {
+        Schema::create('category_news', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('news_id');
@@ -30,6 +30,6 @@ class CreateCategoriesNewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories_news');
+        Schema::dropIfExists('category_news');
     }
 }

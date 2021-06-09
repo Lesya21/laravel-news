@@ -3,6 +3,7 @@
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Список категорий</h1>
+        <a href="{{ route('categories.create')  }}">Добавить категорию</a>
     </div>
     <div>
         <table class="table table-bordered">
@@ -24,14 +25,17 @@
                     <td>{{ $category->title }}</td>
                     <td>{{ $category->description }}</td>
                     <td>{{ $category->created_at }}</td>
-                    <td><a href="">Ред.</a>||<a href="">Уд.</a></td>
+                    <td>
+                        <a href="{{ route('categories.edit', ['category' => $category])  }}">Изменить</a><br><br>
+                        <button @click.prevent="send({{ $category->id }}, $event.target)">Удалить</button>
+                    </td>
                 </tr>
+                @empty
+                    <tr>
+                        <td colspan="5"><h3>Категорий нет.</h3></td>
+                    </tr>
+                @endforelse
             </tbody>
-            @empty
-                <tr>
-                    <td colspan="5"><h3>Категорий нет.</h3></td>
-                </tr>
-            @endforelse
         </table>
     </div>
 @endsection
