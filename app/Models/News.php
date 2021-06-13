@@ -11,11 +11,11 @@ class News extends Model
 
     protected $table = 'news';
 
-    public function newsList()
+    protected $fillable = ['title', 'description', 'detail_text', 'author'];
+
+    public function categories()
     {
-        return \DB::table($this->table)
-            ->select('*')
-            ->get();
+        return $this->belongsToMany(Category::class);
     }
 
     public function news(int $id)

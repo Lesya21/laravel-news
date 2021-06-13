@@ -1,5 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/header-form.js": "/js/header-form.js",
-    "/js/order-form.js": "/js/order-form.js"
+    "/js/order-form.js": "/js/order-form.js",
+    "/js/admin-news-item.js": "/js/admin-news-item.js",
+    "/css/app.css": "/css/app.css"
 }

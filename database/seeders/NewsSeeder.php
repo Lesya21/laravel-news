@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\News;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 
@@ -14,7 +16,22 @@ class NewsSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('news')->insert($this->getData());
+       // \DB::table('news')->insert($this->getData());
+
+        /*
+        $news = News::create([
+            'title'  =>  'Новость с категориями',
+            'author' =>  'Наталья М',
+            'description' => 'Описание новости',
+            'detail_text' => 'Детальный текст'
+        ]);
+        */
+
+        for($i = 1; $i < 11; $i++) {
+            $news = News::find($i);
+            $categories = Category::find([mt_rand(1, 2), mt_rand(3, 5)]);
+            $news->categories()->attach($categories);
+        }
     }
 
     private function getData()
