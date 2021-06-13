@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFeedbackFormTable extends Migration
+class CreateGetdataFormTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateFeedbackFormTable extends Migration
      */
     public function up()
     {
-        Schema::create('feedback_form', function (Blueprint $table) {
+        Schema::create('getdata_form', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('comment')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateFeedbackFormTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('feedback_form');
+        Schema::dropIfExists('getdata_form');
     }
 }
