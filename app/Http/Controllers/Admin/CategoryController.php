@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryCreate;
+use App\Http\Requests\CategoryUpdate;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -33,18 +35,11 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CategoryCreate $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CategoryCreate $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'description' => 'required'
-        ]);
-
         $fields = $request->only('title', 'description');
         $category = Category::create($fields);
 
@@ -78,18 +73,12 @@ class CategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param CategoryUpdate $request
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryUpdate $request, Category $category)
     {
-        $request->validate([
-            'title' => ['required']
-        ]);
-
         $fields = $request->only('title', 'description');
 
         $category->fill($fields)->save();

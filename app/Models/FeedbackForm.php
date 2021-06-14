@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class FeedbackForm extends Model
 {
     use HasFactory;
+
+    protected $table = 'getdata_form';
+
+    protected $fillable = ['name', 'comment'];
 }

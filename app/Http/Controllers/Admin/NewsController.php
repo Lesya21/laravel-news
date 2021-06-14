@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsCreate;
+use App\Http\Requests\NewsUpdate;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
@@ -34,18 +36,11 @@ class NewsController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param NewsCreate $request
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(NewsCreate $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'category_id' => 'required',
-            'description' => 'required'
-        ]);
-
         $fields = $request->only('title', 'description', 'image', 'detail_text', 'author');
         $categoriesFields = $request->only('category_id');
         $categoriesFields = array_map('intval', $categoriesFields['category_id']);
@@ -75,10 +70,8 @@ class NewsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param News $news
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(News $news)
     {
@@ -89,18 +82,12 @@ class NewsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param NewsUpdate $request
+     * @param News $news
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, News $news)
+    public function update(NewsUpdate $request, News $news)
     {
-        $request->validate([
-            'title' => ['required']
-        ]);
-
         $fields = $request->only('title', 'description', 'detail_text', 'status', 'author');
         $fields['code'] = \Str::slug($fields['title']);
 

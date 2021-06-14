@@ -2,51 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Feedback;
+use App\Http\Requests\GetData;
+use App\Models\FeedbackForm;
+use App\Models\GetDataForm;
 use Illuminate\Http\Request;
 
 class FormController extends Controller
 {
-    public function saveCallback(Request $request)
+    public function saveCallback(Feedback $request)
     {
-        $this->validate($request, [
-           'name' => 'required',
-           'comment' => 'required'
-        ]);
+        $fields = $request->only('name', 'comment');
+        $cortege = FeedbackForm::create($fields);
 
-        $str = date('Y-m-d H:i:s'). "\n";
-        $str .= 'Имя: ';
-        $str .= $request->input('name') . "\n";
-        $str .= 'Комментарий: ';
-        $str .= $request->input('comment') . "\n\r";
-
-        $handle = fopen(public_path("/docs/result-callback.txt"), "a+");
-        fwrite($handle, $str);
-
-        return response()->json(['success' => true]);
+        if ($cortege) {
+            return response()->json(['success' => true]);
+        }
     }
 
-    public function saveGetData(Request $request)
+    public function saveGetData(GetData $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email',
-            'comment' => 'required'
-        ]);
+        $fields = $request->only('name', 'phone', 'email', 'comment');
+        $cortege = GetDataForm::create($fields);
 
-        $str = date('Y-m-d H:i:s'). "\n";
-        $str .= 'Имя: ';
-        $str .= $request->input('name') . "\n";
-        $str .= 'Телефон: ';
-        $str .= $request->input('phone') . "\n";
-        $str .= 'Email: ';
-        $str .= $request->input('email') . "\n";
-        $str .= 'Комментарий: ';
-        $str .= $request->input('comment') . "\n\r";
-
-        $handle = fopen(public_path("/docs/result-order.txt"), "a+");
-        fwrite($handle, $str);
-
-        return response()->json(['success' => true]);
+        if ($cortege) {
+            return response()->json(['success' => true]);
+        }
     }
 }
