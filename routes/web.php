@@ -17,6 +17,9 @@ use \App\Http\Controllers\News\NewsController;
 use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use \App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use \App\Http\Controllers\FormController;
+use \App\Http\Controllers\Admin\UsersController as AdminUserController;
+use \App\Http\Controllers\UsersController;
+use \App\Http\Controllers\User\UsersController as UserResourceController;
 
 Route::get('/', function () {
    // dd('asd');
@@ -24,9 +27,10 @@ Route::get('/', function () {
 });
 
 //admin
-Route::group(['prefix' => 'admin'], function() {
-    Route::resource('/categories', AdminCategoryController::class);
-    Route::resource('/news', AdminNewsController::class);
+Route::group(['prefix' => 'admin', 'middleware' => 'verified.custom'], function() {
+    Route::resource('/categories', AdminCategoryController::class)->middleware('auth');
+    Route::resource('/news', AdminNewsController::class)->middleware('auth');
+    Route::resource('/users', AdminUserController::class)->middleware('auth');
 });
 
 //news
@@ -45,3 +49,6 @@ Route::post('/callback', [FormController::class, 'saveCallback'])
     ->name('forms.callback');
 Route::post('/get-data', [FormController::class, 'saveGetData'])
     ->name('forms.data');
+
+Route::get('/home', [UsersController::class, 'profile'])->middleware('auth')->name('home');
+Route::put('/users/', [UserResourceController::class, 'update'])->middleware('auth')->name('user.change');
