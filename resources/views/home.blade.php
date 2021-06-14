@@ -3,7 +3,7 @@
 @section('content')
     <h1 class="text-3xl">Домашняя страница</h1>
 
-    <form method="post" action="{{ route('user.change', ['user' => $user]) }}">
+    <form method="post" action="{{ route('user.update', ['user' => $user]) }}">
         @csrf
         @method('put')
         <div class="form-group">

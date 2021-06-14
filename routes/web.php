@@ -51,4 +51,4 @@ Route::post('/get-data', [FormController::class, 'saveGetData'])
     ->name('forms.data');
 
 Route::get('/home', [UsersController::class, 'profile'])->middleware('auth')->name('home');
-Route::put('/users/', [UserResourceController::class, 'update'])->middleware('auth')->name('user.change');
+Route::put('/users/{user}', [UserResourceController::class, 'update'])->middleware('auth')->name('user.update');
