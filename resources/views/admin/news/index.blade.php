@@ -6,6 +6,7 @@
         <a href="{{ route('news.create')  }}">Добавить новость</a>
     </div>
     <div>
+        <a href="{{ route('news.parser') }}">Спарсить с Яндекс</a> <br><br>
         <table class="table table-bordered admin-news-item">
             <thead>
             <tr>
