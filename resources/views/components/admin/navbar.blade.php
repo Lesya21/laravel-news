@@ -13,6 +13,12 @@
                     Новости
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/users">
+                    <span data-feather="file"></span>
+                    Пользователи
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

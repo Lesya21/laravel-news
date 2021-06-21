@@ -17,5 +17,5 @@ mix.js('resources/js/app.js', 'public/js')
 		.js('resources/js/admin-news-item.js', 'public/js')
 		.vue()
 		.postCss('resources/css/app.css', 'public/css', [
-			//
+			require("tailwindcss")
 		]);
