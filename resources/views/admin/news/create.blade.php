@@ -11,7 +11,7 @@
             @endforeach
         @endif
 
-        <form method="post" action="{{ route('news.store') }}">
+        <form method="post" action="{{ route('news.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="category_id">Категория *</label>
@@ -52,3 +52,17 @@
 
     </div>
 @endsection
+
+
+@push('js')
+    <script>
+	    ClassicEditor
+	    .create( document.querySelector( '#detail_text' ) )
+	    .then( editor => {
+		    console.log( editor );
+	    } )
+	    .catch( error => {
+		    console.error( error );
+	    } );
+    </script>
+@endpush

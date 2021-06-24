@@ -21,6 +21,7 @@
         "vue-loader": "^16.2.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^28.0.0",
         "@tailwindcss/ui": "^0.7.2",
         "vue-axios": "^3.2.4",
         "vue-js-modal": "^2.0.0-rc.6"

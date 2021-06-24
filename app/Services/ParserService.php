@@ -5,14 +5,16 @@ namespace App\Services;
 
 use App\Contracts\ParserServiceContract;
 
+use App\Models\Category;
+use App\Models\News;
 use Orchestra\Parser\Xml\Facade as XmlParser;
 
 class ParserService implements ParserServiceContract
 {
-    public function getNews(string $url): array
+    public function getNews($url): array
     {
         $xml = XmlParser::load($url);
-        return $xml->parse([
+        $serviceNews = $xml->parse([
             'title' => [
                 'uses' => 'channel.title'
             ],
@@ -29,5 +31,15 @@ class ParserService implements ParserServiceContract
                 'uses' => 'channel.item[title,link,guid,description,pubDate]'
             ]
         ]);
+
+        foreach ($serviceNews['news'] as $item) {
+            $news = News::create([
+                'title' => mb_strimwidth($item['title'], 0, 51, "..."),
+                'code' => $item['link'],
+                'description' => $item['description']
+            ]);
+            $categories = Category::find([1]);
+            $news->categories()->attach($categories);
+        }
     }
 }
