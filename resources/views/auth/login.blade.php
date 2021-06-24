@@ -37,6 +37,7 @@
 
                 <!-- Login -->
                 <div class="mt-2">
+                    <a href="{{ route('vk.login') }}">Вход через ВК</a><br>
                     <button type="submit" class="bg-indigo-600 px-4 py-2 rounded-md text-white focus:outline-none">
                         Войти
                     </button>

@@ -20,6 +20,8 @@ use \App\Http\Controllers\FormController;
 use \App\Http\Controllers\Admin\UsersController as AdminUserController;
 use \App\Http\Controllers\UsersController;
 use \App\Http\Controllers\User\UsersController as UserResourceController;
+use App\Http\Controllers\Admin\ParserController;
+use App\Http\Controllers\SocialController;
 
 Route::get('/', function () {
    // dd('asd');
@@ -31,6 +33,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'verified.custom'], function(
     Route::resource('/categories', AdminCategoryController::class)->middleware('auth');
     Route::resource('/news', AdminNewsController::class)->middleware('auth');
     Route::resource('/users', AdminUserController::class)->middleware('auth');
+    Route::get('/parser', [ParserController::class, 'index'])->middleware('auth')->name('news.parser');
 });
 
 //news
@@ -52,3 +55,10 @@ Route::post('/get-data', [FormController::class, 'saveGetData'])
 
 Route::get('/home', [UsersController::class, 'profile'])->middleware('auth')->name('home');
 Route::put('/users/{user}', [UserResourceController::class, 'update'])->middleware('auth')->name('user.update');
+
+Route::group(['middleware' => 'guest'], function() {
+    Route::get('/login/vk', [SocialController::class, 'login'])
+        ->name('vk.login');
+    Route::get('/callback/vk', [SocialController::class, 'callback'])
+        ->name('vk.callback');
+});
