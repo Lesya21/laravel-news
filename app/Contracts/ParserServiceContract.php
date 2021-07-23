@@ -10,5 +10,5 @@ interface ParserServiceContract
      * @param string $url
      * @return array
      */
-    public function getNews(string $url): array;
+    public function getNews($url): array;
 }

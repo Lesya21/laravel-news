@@ -7,7 +7,8 @@ use App\Http\Requests\NewsCreate;
 use App\Http\Requests\NewsUpdate;
 use App\Models\Category;
 use App\Models\News;
-use Illuminate\Http\Request;
+use App\Services\FileUploadService;
+
 
 class NewsController extends Controller
 {
@@ -37,15 +38,20 @@ class NewsController extends Controller
 
     /**
      * @param NewsCreate $request
+     * @param FileUploadService $service
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(NewsCreate $request)
+    public function store(NewsCreate $request, FileUploadService $service)
     {
         $fields = $request->only('title', 'description', 'image', 'detail_text', 'author');
         $categoriesFields = $request->only('category_id');
         $categoriesFields = array_map('intval', $categoriesFields['category_id']);
 
         $fields['code'] = \Str::slug($fields['title']);
+
+        if($request->hasFile('image')) {
+            $fields['image'] = $service->upload($request->file('image'));
+        }
 
         $news = News::create($fields);
         $categories = Category::find($categoriesFields);
@@ -84,12 +90,17 @@ class NewsController extends Controller
     /**
      * @param NewsUpdate $request
      * @param News $news
+     * @param FileUploadService $service
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(NewsUpdate $request, News $news)
+    public function update(NewsUpdate $request, News $news, FileUploadService $service)
     {
         $fields = $request->only('title', 'description', 'detail_text', 'status', 'author');
         $fields['code'] = \Str::slug($fields['title']);
+
+        if($request->hasFile('image')) {
+            $fields['image'] = $service->upload($request->file('image'));
+        }
 
         $categoriesFields = $request->only('category_id');
         $categoriesFields = array_map('intval', $categoriesFields['category_id']);

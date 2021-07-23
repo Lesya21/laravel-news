@@ -11,7 +11,7 @@
             @endforeach
         @endif
 
-        <form method="post" action="{{ route('news.update', ['news' => $news]) }}">
+        <form method="post" action="{{ route('news.update', ['news' => $news]) }}" enctype="multipart/form-data">
             @csrf
             @method('put')
             <div class="form-group">
